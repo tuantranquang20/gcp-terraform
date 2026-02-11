@@ -1,0 +1,11 @@
+# Copy this file to terraform.tfvars and customize with your values
+# Do NOT commit terraform.tfvars to version control
+
+project_id = "your-gcp-project-id"
+region     = "us-central1"
+environment = "dev"
+prefix     = "lab"
+
+# Optional: Replace with your own container images
+# frontend_image = "gcr.io/your-project/frontend:latest"
+# backend_image  = "gcr.io/your-project/backend:latest"
