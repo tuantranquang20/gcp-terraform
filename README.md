@@ -87,7 +87,8 @@ gcp-terraform/
 │   ├── cloudsql/                # MySQL database
 │   ├── redis/                   # Memorystore cache
 │   ├── cloudrun-frontend/       # Public frontend service
-│   └── cloudrun-backend/        # Private backend service
+│   ├── cloudrun-backend/        # Private backend service
+│   └── load-balancer/           # Global HTTPS LB with NEG
 ├── diagrams/
 │   └── architecture.png         # Architecture diagram
 └── docs/
@@ -139,11 +140,16 @@ This lab implements a **3-tier architecture**:
 - Both services isolated in private subnet
 
 ### Supporting Infrastructure
+- **Global HTTPS Load Balancer**: Traffic distribution with Serverless NEG for Cloud Run
+- **Cloud CDN**: Content caching for improved performance
+- **Cloud Armor**: DDoS protection and security policies
+- **SSL/TLS**: Google-managed SSL certificates with auto-renewal
 - **Custom VPC**: Isolated network environment
 - **Cloud NAT**: Allows private services to access internet for updates
 - **Secret Manager**: Secure credential storage
 - **Service Accounts**: Separate identities with least-privilege access
 - **Firewall Rules**: Network security controls
+
 
 ## 📚 Documentation
 

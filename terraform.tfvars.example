@@ -9,3 +9,27 @@ prefix     = "lab"
 # Optional: Replace with your own container images
 # frontend_image = "gcr.io/your-project/frontend:latest"
 # backend_image  = "gcr.io/your-project/backend:latest"
+
+# ============================================
+# Load Balancer Configuration
+# ============================================
+
+# Domain name for the load balancer
+domain_name = "example.com"
+
+# SSL/HTTPS Configuration
+enable_ssl = true
+
+# Performance: Enable Cloud CDN for frontend
+enable_cdn = true
+
+# Security: Enable Cloud Armor with DDoS protection
+enable_cloud_armor     = true
+enable_ddos_protection = true
+
+# Optional: Block specific countries (example)
+# blocked_countries = ["CN", "RU"]
+
+# Logging: Sample rate (1.0 = log all requests)
+log_sample_rate = 1.0
+

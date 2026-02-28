@@ -95,3 +95,38 @@ module "cloudrun_frontend" {
     module.security
   ]
 }
+
+# Load Balancer Module - Global HTTPS Load Balancer with NEG
+module "load_balancer" {
+  source = "./modules/load-balancer"
+
+  project_id  = var.project_id
+  region      = var.region
+  environment = var.environment
+  prefix      = var.prefix
+
+  # Cloud Run Service Names for NEG
+  frontend_service_name = module.cloudrun_frontend.service_name
+  backend_service_name  = module.cloudrun_backend.service_name
+
+  # Domain Configuration
+  domain_name = var.domain_name
+  enable_ssl  = var.enable_ssl
+
+  # Performance Features
+  enable_cdn = var.enable_cdn
+
+  # Security Features
+  enable_cloud_armor     = var.enable_cloud_armor
+  enable_ddos_protection = var.enable_ddos_protection
+  blocked_countries      = var.blocked_countries
+
+  # Logging
+  log_sample_rate = var.log_sample_rate
+
+  depends_on = [
+    module.cloudrun_frontend,
+    module.cloudrun_backend
+  ]
+}
+

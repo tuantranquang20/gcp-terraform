@@ -1,40 +1,39 @@
 variable "project_id" {
-  description = "GCP Project ID where resources will be created"
+  description = "GCP Project ID"
   type        = string
 }
 
 variable "region" {
-  description = "GCP region for resources"
+  description = "GCP region for regional resources"
   type        = string
-  default     = "us-central1"
 }
 
 variable "environment" {
   description = "Environment name (e.g., dev, staging, prod)"
   type        = string
-  default     = "dev"
 }
 
 variable "prefix" {
   description = "Prefix for resource names"
   type        = string
-  default     = "lab"
-}
-
-variable "frontend_image" {
-  description = "Container image for frontend service (e.g., gcr.io/cloudrun/hello)"
-  type        = string
-  default     = "gcr.io/cloudrun/hello"
-}
-
-variable "backend_image" {
-  description = "Container image for backend service (e.g., gcr.io/cloudrun/hello)"
-  type        = string
-  default     = "gcr.io/cloudrun/hello"
 }
 
 # ============================================
-# Load Balancer Configuration
+# Cloud Run Service Names
+# ============================================
+
+variable "frontend_service_name" {
+  description = "Name of the frontend Cloud Run service"
+  type        = string
+}
+
+variable "backend_service_name" {
+  description = "Name of the backend Cloud Run service"
+  type        = string
+}
+
+# ============================================
+# Domain and SSL Configuration
 # ============================================
 
 variable "domain_name" {
@@ -49,11 +48,19 @@ variable "enable_ssl" {
   default     = true
 }
 
+# ============================================
+# CDN Configuration
+# ============================================
+
 variable "enable_cdn" {
-  description = "Enable Cloud CDN for frontend caching"
+  description = "Enable Cloud CDN for frontend"
   type        = bool
   default     = true
 }
+
+# ============================================
+# Cloud Armor Configuration
+# ============================================
 
 variable "enable_cloud_armor" {
   description = "Enable Cloud Armor security policies"
@@ -68,10 +75,14 @@ variable "enable_ddos_protection" {
 }
 
 variable "blocked_countries" {
-  description = "List of country codes to block via Cloud Armor (e.g., ['CN', 'RU'])"
+  description = "List of country codes to block (e.g., ['CN', 'RU'])"
   type        = list(string)
   default     = []
 }
+
+# ============================================
+# Logging Configuration
+# ============================================
 
 variable "log_sample_rate" {
   description = "Sample rate for load balancer logs (0.0 to 1.0)"
@@ -83,3 +94,19 @@ variable "log_sample_rate" {
   }
 }
 
+# ============================================
+# IAP Configuration
+# ============================================
+
+variable "iap_client_id" {
+  description = "OAuth2 client ID for Identity-Aware Proxy (leave empty to disable IAP)"
+  type        = string
+  default     = ""
+}
+
+variable "iap_client_secret" {
+  description = "OAuth2 client secret for Identity-Aware Proxy"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
